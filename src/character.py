@@ -1,3 +1,5 @@
+import enum
+
 class Character():
     def __init__(self, name, hp, shield, dice, deck):
         self.name = name
