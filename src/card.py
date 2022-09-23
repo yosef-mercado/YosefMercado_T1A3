@@ -1,21 +1,30 @@
 import random
 
-rarities = [
+rarities = (
     "Unique",
     "Common",
     "Rare",
     "Super Rare"
-    ]
-
-x = random.randint(1, 6)
+    )
 
 costs = {
     "Any": [1, 2, 3, 4, 5, 6],
     "Odd": [1, 3, 5],
     "Even": [2, 4, 6],
-    str(x): x,
-    "Min " + str(x): [],
-    "Max " + str(x): []
+    "1": 1,
+    "2": 2,
+    "Min2": [2, 3, 4, 5, 6],
+    "Max2": [1, 2],
+    "3": 3,
+    "Min3": [3, 4, 5, 6],
+    "Max3": [1, 2, 3],
+    "4": 4,
+    "Min4": [4, 5, 6],
+    "Max4": [1, 2, 3, 4],
+    "5": 5,
+    "Min5": [5, 6],
+    "Max5": [1, 2, 3, 4, 5],
+    "6": 6,
     }
 
 class Card():
@@ -24,6 +33,3 @@ class Card():
         self.rarity = rarity
         self.cost = cost
         self.effect = effect
-
-
-print(costs)
