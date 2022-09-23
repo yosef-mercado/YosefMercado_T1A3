@@ -1,33 +1,38 @@
 import random
 
+from aenum import Enum, NoAlias
 from character import Job
-from enum import Enum
 
-COSTS = {
-    "Any": [1, 2, 3, 4, 5, 6],
-    "Odd": [1, 3, 5],
-    "Even": [2, 4, 6],
-    "1": 1,
-    "2": 2,
-    "Min2": [2, 3, 4, 5, 6],
-    "Max2": [1, 2],
-    "3": 3,
-    "Min3": [3, 4, 5, 6],
-    "Max3": [1, 2, 3],
-    "4": 4,
-    "Min4": [4, 5, 6],
-    "Max4": [1, 2, 3, 4],
-    "5": 5,
-    "Min5": [5, 6],
-    "Max5": [1, 2, 3, 4, 5],
-    "6": 6,
-    }
+class Cost(Enum):
+    ANY = (1, 2, 3, 4, 5, 6)
+    ODD = (1, 3, 5)
+    EVEN = (2, 4, 6)
+    ONE = 1
+    TWO = 2
+    MIN_TWO = (2, 3, 4, 5, 6)
+    MAX_TWO = (1, 2)
+    THREE = 3
+    MIN_THREE = (3, 4, 5, 6)
+    MAX_THREE = (1, 2, 3)
+    FOUR = 4
+    MIN_FOUR = (4, 5, 6)
+    MAX_FOUR = (1, 2, 3, 4)
+    FIVE = 5
+    MIN_FIVE = (5, 6)
+    MAX_FIVE = (1, 2, 3, 4, 5)
+    SIX = 6
+
+class Effect(Enum):
+    _settings_ = NoAlias
+    DAMAGE = (1, 2, 3, "X")
+    HEAL = (1, 2, 3, "X")
+    SHIELD = (1, 2, 3, "X")
+    DICE = ("same", "new")
 
 class Rarity(Enum):
-    UNIQUE = "Unique"
-    COMMON = "Common"
-    RARE = "Rare"
-    SUPER_RARE = "Super Rare"
+    COMMON = 1
+    RARE = 2
+    SUPER_RARE = 3
 
 class Card():
     def __init__(self, name, rarity, cost, effect):
