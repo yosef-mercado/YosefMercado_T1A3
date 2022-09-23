@@ -1,11 +1,11 @@
+from enum import Enum
 import random
 
-rarities = (
-    "Unique",
-    "Common",
-    "Rare",
-    "Super Rare"
-    )
+class Rarities(Enum):
+    UNIQUE = "Unique"
+    COMMON = "Common"
+    RARE = "Rare"
+    SUPER_RARE = "Super Rare"
 
 costs = {
     "Any": [1, 2, 3, 4, 5, 6],
