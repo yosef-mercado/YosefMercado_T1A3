@@ -1,13 +1,32 @@
-from enum import Enum
 import random
 
-class Rarities(Enum):
+from enum import Enum
+
+class Rarity(Enum):
     UNIQUE = "Unique"
     COMMON = "Common"
     RARE = "Rare"
     SUPER_RARE = "Super Rare"
 
-costs = {
+class Card():
+    def __init__(self, name, rarity, cost, effect):
+        self.name = name
+        self.rarity = rarity
+        self.cost = cost
+        self.effect = effect
+
+WEAPON_ADJECTIVES = (
+    "Ordinary", "Magical",
+    "Brand New", "Antiquated",
+    "Authentic", "Fake",
+    "Shiny", "Rusted",
+    "Angelic", "Hellish",
+    )
+FIGHTER_WEAPONS = ("Axe", "Mace", "Sword")
+MAGE_WEAPONS = ("Rod", "Staff", "Wand")
+THIEF_WEAPONS = ("Crossbow", "Dagger", "Short Sword")
+
+COSTS = {
     "Any": [1, 2, 3, 4, 5, 6],
     "Odd": [1, 3, 5],
     "Even": [2, 4, 6],
@@ -26,10 +45,3 @@ costs = {
     "Max5": [1, 2, 3, 4, 5],
     "6": 6,
     }
-
-class Card():
-    def __init__(self, name, rarity, cost, effect):
-        self.name = name
-        self.rarity = rarity
-        self.cost = cost
-        self.effect = effect

@@ -1,4 +1,9 @@
-import enum
+from enum import Enum
+
+class Job(Enum):
+    FIGHTER = "Fighter"
+    MAGE = "Mage"
+    THIEF = "Thief"
 
 class Character():
     def __init__(self, name, hp, shield, dice, deck):
@@ -11,10 +16,11 @@ class Character():
         self.deck = deck
 
 class Player(Character):
-    def __init__(self, name, job, hp, shield, dice, deck, deck_size):
+    DECK_SIZE = 5
+
+    def __init__(self, name, job, hp, shield, dice, deck):
         super().__init__(name, hp, shield, dice, deck)
         self.job = job
-        self.deck_size = deck_size
 
 class Enemy(Character):
     pass

@@ -1,4 +1,6 @@
 from input_validator import input_str
+
+from character import Job
 from character import Player
 
 def player_name():
@@ -14,19 +16,37 @@ def player_name():
         return name
 
 def new_fighter():
-    player = Player(
+    fighter = Player(
         player_name(),
-        "Fighter",
+        Job.FIGHTER,
         30,
         0,
         2,
-        [],
-        5
+        []
     )
 
-    return player
+    return fighter
 
-# def new_mage():
+def new_mage():
+    mage = Player(
+        player_name(),
+        Job.MAGE,
+        18,
+        6,
+        3,
+        []
+    )
 
+    return mage
 
-# def new_thief():
+def new_thief():
+    thief = Player(
+        player_name(),
+        Job.THIEF,
+        24,
+        0,
+        3,
+        []
+    )
+
+    return thief
