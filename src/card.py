@@ -1,4 +1,5 @@
 import random
+from re import S
 
 from aenum import Enum, NoAlias
 from character import Job
@@ -24,7 +25,8 @@ class Cost(Enum):
 
 class Effect(Enum):
     _settings_ = NoAlias
-    DAMAGE = (1, 2, 3, "X")
+    DAMAGE_1 = (1, 2, 3, "X")
+    DAMAGE_2 = (1, 2, 3,)
     HEAL = (1, 2, 3, "X")
     SHIELD = (1, 2, 3, "X")
     DICE = ("same", "new")
@@ -35,11 +37,14 @@ class Rarity(Enum):
     SUPER_RARE = 3
 
 class Card():
-    def __init__(self, name, rarity, cost, effect):
+    def __init__(self, name, rarity, cost):
         self.name = name
         self.rarity = rarity
         self.cost = cost
-        self.effect = effect
+        self.effect = []
+
+    def add_effect(self, new_effect):
+        self.effect.append(new_effect)
 
 def random_card_name(player_job):
     ADJECTIVES = (
@@ -67,19 +72,17 @@ def random_card_name(player_job):
 def new_random_card(player_job):
     random_rarity = random.choice(list(Rarity))
     random_cost = random.choice(list(Cost))
-    effect = []
-    
-    for i in range(random_rarity.value):
-        random_effect = random.choice(list(Effect))
-        random_value = random_effect.value[random.randint(0, len(random_effect.value) - 1)]
-
-        effect.append([random_effect, random_value])
 
     new_card = Card(
         random_card_name(player_job),
         random_rarity,
         random_cost,
-        effect,
         )
+
+    for i in range(new_card.rarity.value):
+        random_effect = random.choice(list(Effect))
+        random_value = random_effect.value[random.randint(0, len(random_effect.value) - 1)]
+
+        new_card.add_effect([random_effect, random_value])
 
     return new_card
