@@ -5,7 +5,6 @@ from character import Player
 
 from input_validator import input_name
 from input_validator import input_selection
-from input_validator import input_str
 
 def new_fighter(player_name):
     fighter = Player(
@@ -43,7 +42,7 @@ def new_thief(player_name):
 
     return thief
 
-def new_player():
+def spawn_player():
     print("Welcome adventurer!")
 
     player_name = input_name("What is your name? ")
@@ -53,14 +52,14 @@ def new_player():
     job_options = [job_type.value for job_type in Job]
     job_selection = input_selection("Are you a Fighter, a Mage, or a Thief? ", job_options)
 
-    if job_selection == job_options[0]: 
-        player = new_fighter(player_name) # if "fighter", instantiate Player object with values of Fighter job
-    elif job_selection == job_options[1]: 
-        player = new_mage(player_name) # if "mage", instantiate Player object with values of Mage job
-    elif job_selection == job_options[1]: 
-        player = new_thief(player_name) # if "thief", instantiate Player object with values of Thief job
+    if job_selection == job_options[0]:
+        player = new_fighter(player_name)
+    elif job_selection == job_options[1]:
+        player = new_mage(player_name)
+    elif job_selection == job_options[1]:
+        player = new_thief(player_name)
 
     print("So, you're " + player_name + " the " + job_selection.capitalize() + ", eh?")
+    print("Go forth, and may the Heart of the Dice be on your side.")
 
-    
-new_player()
+    return player

@@ -1,4 +1,5 @@
 import enemy_card_list
+import random
 
 from character import Enemy
 
@@ -34,3 +35,10 @@ def new_zombie():
         )
 
     return zombie
+
+def spawn_enemy():
+    possible_enemies = [new_ninja, new_pirate, new_zombie]
+
+    new_enemy = random.choice(possible_enemies)()
+
+    return new_enemy
