@@ -1,7 +1,8 @@
-from input_validator import input_str
+import player_card_list
 
 from character import Job
 from character import Player
+from input_validator import input_str
 
 def player_name():
     CHARACTER_LIMIT = 16
@@ -22,7 +23,7 @@ def new_fighter():
         30,
         0,
         2,
-        []
+        player_card_list.fighter_deck
     )
 
     return fighter
@@ -34,7 +35,7 @@ def new_mage():
         18,
         6,
         3,
-        []
+        player_card_list.mage_deck
     )
 
     return mage
@@ -46,7 +47,7 @@ def new_thief():
         24,
         0,
         3,
-        []
+        player_card_list.thief_deck
     )
 
     return thief
