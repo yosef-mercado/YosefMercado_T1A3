@@ -4,7 +4,7 @@ from character import Job
 from character import Player
 from input_validator import input_str
 
-def player_name():
+def enter_name():
     CHARACTER_LIMIT = 16
     
     while True:
@@ -16,9 +16,9 @@ def player_name():
 
         return name
 
-def new_fighter():
+def new_fighter(player_name):
     fighter = Player(
-        player_name(),
+        player_name,
         Job.FIGHTER,
         30,
         0,
@@ -28,9 +28,9 @@ def new_fighter():
 
     return fighter
 
-def new_mage():
+def new_mage(player_name):
     mage = Player(
-        player_name(),
+        player_name,
         Job.MAGE,
         18,
         6,
@@ -40,9 +40,9 @@ def new_mage():
 
     return mage
 
-def new_thief():
+def new_thief(player_name):
     thief = Player(
-        player_name(),
+        player_name,
         Job.THIEF,
         24,
         0,
@@ -51,3 +51,5 @@ def new_thief():
     )
 
     return thief
+
+def new_player():
