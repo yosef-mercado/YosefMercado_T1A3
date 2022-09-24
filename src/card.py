@@ -1,5 +1,4 @@
 import random
-from re import S
 
 from aenum import Enum, NoAlias
 from character import Job

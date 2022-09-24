@@ -2,9 +2,10 @@ import player_card_list
 
 from character import Job
 from character import Player
+
 from input_validator import input_name
-from input_validator import input_str
 from input_validator import input_selection
+from input_validator import input_str
 
 def new_fighter(player_name):
     fighter = Player(
@@ -44,31 +45,22 @@ def new_thief(player_name):
 
 def new_player():
     print("Welcome adventurer!")
-    print("What is your name?")
 
-    # Player Name loop
-    while True:
-        player_name = input_name()
-        print("Your name is " + player_name + ". Is this correct?")
+    player_name = input_name("What is your name? ")
+
+    print("Duly noted. Now, what job do you specialise as?")
+           
+    job_options = [job_type.value for job_type in Job]
+    job_selection = input_selection("Are you a Fighter, a Mage, or a Thief? ", job_options)
+
+    if job_selection == job_options[0]: 
+        player = new_fighter(player_name) # if "fighter", instantiate Player object with values of Fighter job
+    elif job_selection == job_options[1]: 
+        player = new_mage(player_name) # if "mage", instantiate Player object with values of Mage job
+    elif job_selection == job_options[1]: 
+        player = new_thief(player_name) # if "thief", instantiate Player object with values of Thief job
+
+    print("So, you're " + player_name + " the " + job_selection.capitalize() + ", eh?")
+
     
-        options = ["yes", "no"]
-
-        selection = input_selection(options)
-
-        if selection == options[0]: # if yes, break loop
-            break
-        if selection == options[1]: # if no, continue loop
-            continue
-
-    print("Excellent! Now, please select one of the following jobs to specialise as: ")
-
-    # Job Selection loop
-    options = [job_type.value for job_type in Job]
-
-    selection = input_selection(options)
-
-    if selection == options[0]: # if fighter, instantiate Player object with values of Fighter job
-        player = new_fighter(player_name)
-
-
 new_player()

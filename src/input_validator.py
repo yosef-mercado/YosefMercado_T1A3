@@ -1,3 +1,5 @@
+# input functions for specific data types
+
 def input_int(prompt):
     '''"input_int()" repeatedly prompts for input until an integer is entered.'''
 
@@ -25,12 +27,14 @@ def input_str(prompt):
 
         return value
 
-def input_name():
-    '''"input_name()" repeatedly prompts for an input that is alphanumeric and a maximu of 16 characters."'''
+# input functions for specific scenarios
+
+def input_name(prompt):
+    '''"input_name()" repeatedly prompts for an input that is alphanumeric and a maximum of 16 characters."'''
     CHARACTER_LIMIT = 16
     
     while True:
-        name = input_str("Please enter your name: ")
+        name = input_str(prompt)
 
         if not name.isalnum() or len(name) > CHARACTER_LIMIT:
             print("Invalid input. Name must be alphanumeric and a maximum of 16 characters.")
@@ -38,11 +42,11 @@ def input_name():
 
         return name
 
-def input_selection(options: list):
+def input_selection(prompt, options: list):
     '''"input_selection()" repeatedly prompts for an input until the input matches a value from a list of options.'''
 
     while True:
-        value = input_str(str(options) + ": ").lower()
+        value = input_str(prompt).lower()
 
         if value not in options:
             print("Invalid input. Please enter one of the following options: " + str(options))
