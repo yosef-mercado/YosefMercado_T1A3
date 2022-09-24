@@ -73,7 +73,7 @@ def new_random_card(player_job):
         random_effect = random.choice(list(Effect))
         random_value = random_effect.value[random.randint(0, len(random_effect.value) - 1)]
 
-        effect.append([random_effect.name, random_value])
+        effect.append([random_effect, random_value])
 
     new_card = Card(
         random_card_name(player_job),
@@ -83,11 +83,3 @@ def new_random_card(player_job):
         )
 
     return new_card
-
-test = new_random_card(Job.FIGHTER)
-
-print(test.name)
-print(test.rarity)
-print(test.cost)
-print(test.effect)
-print(test.effect[0][0])
