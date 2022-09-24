@@ -26,12 +26,12 @@ def input_int(prompt):
         return validate_int
 
 def input_selection(options: list):
-    '''"input_selection()" repeatedly prompts for an input until the input matches a value in a list of valid values.'''
+    '''"input_selection()" repeatedly prompts for an input until the input matches a value from a list of options.'''
 
     while True:
-        value = input_str(str(options) + ": ")
+        value = input_str(str(options) + ": ").lower()
 
-        if value.lower() not in options:
+        if value not in options:
             print("Invalid input. Please enter one of the following options: " + str(options))
             continue
         
