@@ -32,9 +32,6 @@ def display_card(card):
     print("[" + read_rarity[card.rarity] + "]" + " " + card.name)
     print("Cost:")
     print(read_cost[card.cost])
-    display_effect(card)
-
-def display_effect(card):
     print("Effect: ")
     
     for effect in card.effect:

@@ -6,7 +6,8 @@ from character import Player
 from input_validator import input_name
 from input_validator import input_selection
 
-def new_fighter(player_name):
+def new_fighter(player_name: str):
+    '''Instantiates the Player class with the values of the Fighter job.'''
     fighter = Player(
         player_name,
         Job.FIGHTER,
@@ -18,7 +19,8 @@ def new_fighter(player_name):
 
     return fighter
 
-def new_mage(player_name):
+def new_mage(player_name: str):
+    '''Instantiates the Player class with the values of the Mage job.'''
     mage = Player(
         player_name,
         Job.MAGE,
@@ -30,7 +32,8 @@ def new_mage(player_name):
 
     return mage
 
-def new_thief(player_name):
+def new_thief(player_name: str):
+    '''Instantiates the Player class with the values of the Thief job.'''
     thief = Player(
         player_name,
         Job.THIEF,

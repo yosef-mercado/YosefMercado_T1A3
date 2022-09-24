@@ -1,7 +1,7 @@
 # input functions for specific data types
 
-def input_int(prompt):
-    '''"input_int()" repeatedly prompts for input until an integer is entered.'''
+def input_int(prompt: str):
+    '''Repeatedly prompts for input until an integer is entered.'''
 
     while True:
         value = input(prompt)
@@ -15,8 +15,8 @@ def input_int(prompt):
 
         return validate_int
 
-def input_str(prompt):
-    '''"input_str" repeatedly prompts for input until something other than whitespace is entered.'''
+def input_str(prompt: str):
+    '''Repeatedly prompts for input until something other than whitespace is entered.'''
 
     while True:
         value = input(prompt).strip()
@@ -29,8 +29,8 @@ def input_str(prompt):
 
 # input functions for specific scenarios
 
-def input_name(prompt):
-    '''"input_name()" repeatedly prompts for an input that is alphanumeric and a maximum of 16 characters."'''
+def input_name(prompt: str):
+    '''Repeatedly prompts for an input that is alphanumeric and a maximum of 16 characters."'''
     CHARACTER_LIMIT = 16
     
     while True:
@@ -42,8 +42,8 @@ def input_name(prompt):
 
         return name
 
-def input_selection(prompt, options: list):
-    '''"input_selection()" repeatedly prompts for an input until the input matches a value from a list of options.'''
+def input_selection(prompt: str, options: list):
+    '''Repeatedly prompts for an input until the input matches a value from a list of options.'''
 
     while True:
         value = input_str(prompt).lower()

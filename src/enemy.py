@@ -4,6 +4,7 @@ import random
 from character import Enemy
 
 def new_ninja():
+    '''Instantiates the Enemy class with the values of the Ninja enemy.'''
     ninja = Enemy(
         "Ninja",
         16,
@@ -15,6 +16,7 @@ def new_ninja():
     return ninja
 
 def new_pirate():
+    '''Instantiates the Enemy class with the values of the Pirate enemy.'''
     pirate = Enemy(
         "Pirate",
         12,
@@ -26,6 +28,7 @@ def new_pirate():
     return pirate
 
 def new_zombie():
+    '''Instantiates the Enemy class with the values of the Zombie enemy.'''
     zombie = Enemy(
         "Zombie",
         8,
@@ -37,6 +40,7 @@ def new_zombie():
     return zombie
 
 def spawn_enemy():
+    '''Instantiates the Enemy class with the values of a random enemy.'''
     possible_enemies = [new_ninja, new_pirate, new_zombie]
 
     new_enemy = random.choice(possible_enemies)()
