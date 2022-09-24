@@ -38,8 +38,10 @@ def display_effect(card):
     print("Effect: ")
     
     for effect in card.effect:
-        if effect[0] == Effect.DAMAGE:
+        if effect[0] == Effect.DAMAGE_1:
             print("Deal " + str(effect[1]) + " damage")
+        elif effect[0] == Effect.DAMAGE_2:
+            print("Deal X + " +  str(effect[1]) + " damage")
         elif effect[0] == Effect.HEAL:
             print("Restore " + str(effect[1]) + " HP")
         elif effect[0] == Effect.SHIELD:
