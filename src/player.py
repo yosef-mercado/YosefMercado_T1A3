@@ -2,19 +2,9 @@ import player_card_list
 
 from character import Job
 from character import Player
+from input_validator import input_name
 from input_validator import input_str
-
-def enter_name():
-    CHARACTER_LIMIT = 16
-    
-    while True:
-        name = input_str("Please enter your name: ")
-
-        if not name.isalnum() or len(name) > CHARACTER_LIMIT:
-            print("Invalid input. Name must be alphanumeric and a maximum of 16 characters.")
-            continue
-
-        return name
+from input_validator import input_selection
 
 def new_fighter(player_name):
     fighter = Player(
@@ -53,3 +43,32 @@ def new_thief(player_name):
     return thief
 
 def new_player():
+    print("Welcome adventurer!")
+    print("What is your name?")
+
+    # Player Name loop
+    while True:
+        player_name = input_name()
+        print("Your name is " + player_name + ". Is this correct?")
+    
+        options = ["yes", "no"]
+
+        selection = input_selection(options)
+
+        if selection == options[0]: # if yes, break loop
+            break
+        if selection == options[1]: # if no, continue loop
+            continue
+
+    print("Excellent! Now, please select one of the following jobs to specialise as: ")
+
+    # Job Selection loop
+    options = [job_type.value for job_type in Job]
+
+    selection = input_selection(options)
+
+    if selection == options[0]: # if fighter, instantiate Player object with values of Fighter job
+        player = new_fighter(player_name)
+
+
+new_player()

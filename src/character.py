@@ -1,9 +1,9 @@
 from enum import Enum
 
 class Job(Enum):
-    FIGHTER = "Fighter"
-    MAGE = "Mage"
-    THIEF = "Thief"
+    FIGHTER = "fighter"
+    MAGE = "mage"
+    THIEF = "thief"
 
 class Character():
     def __init__(self, name, hp, shield, dice, deck):
