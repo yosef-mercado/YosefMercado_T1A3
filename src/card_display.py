@@ -28,12 +28,13 @@ read_rarity = {
     Rarity.SUPER_RARE: "Super Rare"
 }
 
-def display_card(card):
-    print("[" + read_rarity[card.rarity] + "]" + " " + card.name)
-    print("Cost:")
+def display_name(card):
+    print(f"[ {read_rarity[card.rarity]} ] {card.name}")
+
+def display_cost(card):
     print(read_cost[card.cost])
-    print("Effect: ")
-    
+
+def display_effect(card):
     for effect in card.effect:
         if effect[0] == Effect.DAMAGE_1:
             print(f"Deal {effect[1]} damage")
@@ -47,3 +48,10 @@ def display_card(card):
             print("Return dice with the same value")
         elif effect[0] == Effect.DICE and effect[1] == "new":
             print("Return dice with a new value")
+
+def display_card(card):
+    display_name(card)
+    print("Cost:")
+    display_cost(card)
+    print("Effect: ")
+    display_effect(card)
