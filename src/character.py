@@ -1,3 +1,5 @@
+from dice import roll
+
 from enum import Enum
 
 class Job(Enum):
@@ -13,7 +15,15 @@ class Character():
         self.shield = shield
         self.current_shield = shield
         self.dice = dice
+        self.current_dice = []
         self.deck = deck
+        self.current_deck = []
+
+    def turn_dice(self):
+        self.current_dice = roll(f"{self.dice}d6")
+        
+    def turn_deck(self):
+        self.current_deck = self.deck.copy()
 
 class Player(Character):
     DECK_SIZE = 5

@@ -63,7 +63,7 @@ def input_selection(prompt: str, options: list):
         value = input_str(prompt).lower()
 
         if value not in options:
-            print(f"Invalid input. Please enter one of the following options: {', '.join(options)}")
+            print(f"Invalid input. Please enter one of the following options: {options}")
             continue
         
         return value

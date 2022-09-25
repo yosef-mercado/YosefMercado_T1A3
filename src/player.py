@@ -58,11 +58,11 @@ def spawn_player():
     job_options = [job_type.value for job_type in Job]
     job_selection = input_selection("Are you a Fighter, a Mage, or a Thief? ", job_options)
 
-    if job_selection == job_options[0]:
+    if job_selection == "fighter":
         player = new_fighter(player_name)
-    elif job_selection == job_options[1]:
+    elif job_selection == "mage":
         player = new_mage(player_name)
-    elif job_selection == job_options[1]:
+    elif job_selection == "thief":
         player = new_thief(player_name)
 
     print(f"So, you're {player_name} the {job_selection.capitalize()} eh?")
