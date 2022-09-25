@@ -32,7 +32,7 @@ mage_card_1 = Card(
 
 mage_card_1.add_effect([Effect.DAMAGE_1, Effect.DAMAGE_1.value[1]])
 
-# Mage Card 1: Adventurer's Fireball
+# Mage Card 2: Adventurer's Fireball
 mage_card_2 = Card(
     "Adventurer's Fireball",
     Rarity.SUPER_RARE,

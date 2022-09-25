@@ -1,5 +1,4 @@
 # input functions for specific data types
-
 def input_int(prompt: str):
     '''Repeatedly prompts for input until an integer is entered.'''
 
@@ -28,6 +27,21 @@ def input_str(prompt: str):
         return value
 
 # input functions for specific scenarios
+def input_index(prompt: str, options: list):
+    '''"Repeatedly prompts for an input that is an integer and is a valid index of a list."'''
+
+    while True:
+        value = input_int(prompt)
+
+        try:
+            validate_index = options[value]
+
+        except IndexError:
+            print("Invalid input. Please enter a valid index.")
+            print("HINT: Indexes start at 0.")
+            continue
+
+        return validate_index
 
 def input_name(prompt: str):
     '''Repeatedly prompts for an input that is alphanumeric and a maximum of 16 characters."'''
@@ -49,7 +63,7 @@ def input_selection(prompt: str, options: list):
         value = input_str(prompt).lower()
 
         if value not in options:
-            print("Invalid input. Please enter one of the following options: " + str(options))
+            print(f"Invalid input. Please enter one of the following options: {', '.join(options)}")
             continue
         
         return value
