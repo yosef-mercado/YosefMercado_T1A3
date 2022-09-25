@@ -38,7 +38,6 @@ def input_index(prompt: str, options: list):
 
         except IndexError:
             print("Invalid input. Please enter a valid index.")
-            print("HINT: Indexes start at 0.")
             continue
 
         return validate_index

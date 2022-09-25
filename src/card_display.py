@@ -50,8 +50,10 @@ def display_effect(card):
             print("Return dice with a new value")
 
 def display_card(card):
+    print("----------")
     display_name(card)
     print("Cost:")
     display_cost(card)
     print("Effect: ")
     display_effect(card)
+    print("----------")
