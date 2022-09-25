@@ -1,4 +1,3 @@
-import dice
 import time
 
 from enemy import spawn_enemy
@@ -51,8 +50,12 @@ def menu_combat(player, enemy):
         print(COMBAT_MENU)
         command = input_selection("> Enter command: ", COMBAT_MENU)
 
+        # use card command if deck is empty
+        if command == "use card" and not player.current_deck:
+            print("No more cards remaining in deck.")
+            time.sleep(PRINT_DELAY)
         # use card command
-        if command == "use card":
+        elif command == "use card":
             menu_use_card(player)
         # my status command
         elif command == "my status":
@@ -72,7 +75,10 @@ def menu_use_card(player):
     chosen_dice = input_index("> Enter index of dice to use: ", player.current_dice)
 
     if chosen_dice not in chosen_card.cost.value:
-        print(f"Cannot use dice on this card. {chosen_card.name} ({card_display.read_cost[chosen_card.cost]}) only accepts dice values of {chosen_card.cost.value}")
+        print(f"Cannot use this dice on this card. {chosen_card.name} ({card_display.read_cost[chosen_card.cost]}) only accepts dice values of {chosen_card.cost.value}")
+    else:
+        player.current_deck.remove(chosen_card)
+        player.current_dice.remove(chosen_dice)
 
 def menu_player_status(player):
     PLAYER_STATUS_MENU = ["health", "dice", "deck", "return"]
@@ -87,6 +93,10 @@ def menu_player_status(player):
     # player dice command
     elif command == "dice":
         status_dice(player)
+        time.sleep(PRINT_DELAY)
+    # player deck command if deck is empty
+    elif command == "deck" and not player.current_deck:
+        print("No more cards remaining in deck.")
         time.sleep(PRINT_DELAY)
     # player deck command
     elif command == "deck":
