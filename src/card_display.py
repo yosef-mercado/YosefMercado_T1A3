@@ -36,13 +36,13 @@ def display_card(card):
     
     for effect in card.effect:
         if effect[0] == Effect.DAMAGE_1:
-            print("Deal " + str(effect[1]) + " damage")
+            print(f"Deal {effect[1]} damage")
         elif effect[0] == Effect.DAMAGE_2:
-            print("Deal X + " +  str(effect[1]) + " damage")
+            print(f"Deal X {effect[1]} damage")
         elif effect[0] == Effect.HEAL:
-            print("Restore " + str(effect[1]) + " HP")
+            print(f"Restore {effect[1]} HP")
         elif effect[0] == Effect.SHIELD:
-            print("Gain " + str(effect[1]) + " Shield")
+            print(f"Gain {effect[1]} Shield")
         elif effect[0] == Effect.DICE and effect[1] == "same":
             print("Return dice with the same value")
         elif effect[0] == Effect.DICE and effect[1] == "new":
