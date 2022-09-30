@@ -20,7 +20,7 @@ ninja_card_2 = Card(
     Cost.ODD
 )
 
-ninja_card_2.add_effect([Effect.SHIELD, Effect.SHIELD.value[2]])
+ninja_card_2.add_effect([Effect.SHIELD, Effect.SHIELD.value[1]])
 
 # unique preset Cards for the Pirate
 # Pirate Card 1: Cutlass

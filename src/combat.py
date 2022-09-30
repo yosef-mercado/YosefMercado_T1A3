@@ -70,7 +70,6 @@ def calculate_values(current_character, opposing_character, card, dice):
         print_delay()
     if shield > 0:
         current_character.current_shield = current_character.current_shield + shield
-        print_delay()
         print(f"{current_character.name} gains {shield} shield!")
         print_delay()
 
@@ -83,6 +82,14 @@ def read_dice(character):
     return dice_with_index
 
 def read_deck(character):
+    cards_with_index = []
+
+    for index, card in enumerate(character.deck):
+        cards_with_index.append(f"{index}. {card.name} ({card_display.read_cost[card.cost]})")
+    
+    return cards_with_index
+
+def read_current_deck(character):
     cards_with_index = []
 
     for index, card in enumerate(character.current_deck):
@@ -103,7 +110,7 @@ def status_dice(character):
 
 def status_deck(character):
     print(f"{character.name}'s deck: ")
-    print(read_deck(character))
+    print(read_current_deck(character))
 
 def menu_combat(player, enemy):
     COMBAT_MENU = ["use card", "my status", "enemy status", "end turn"]
@@ -134,7 +141,7 @@ def menu_combat(player, enemy):
             break
 
 def menu_use_card(player, enemy):
-    print(read_deck(player))
+    print(read_current_deck(player))
     chosen_card = input_index("> Enter index of card to use: ", player.current_deck)
 
     print(read_dice(player))
