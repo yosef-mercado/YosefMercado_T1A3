@@ -4,9 +4,41 @@ from enemy import spawn_enemy
 from game import PRINT_DELAY
 from input_validator import input_index
 from input_validator import input_selection
-from player import new_mage
+from player import new_fighter
 
 import card_display
+
+def calculate_values(current_character, opposing_character, card, dice):
+    # get damage value from effects
+    damage = card.read_effect(dice)[0]
+    # get heal value from effects
+    heal = card.read_effect(dice)[1]
+    # get shield value from effects
+    shield = card.read_effect(dice)[2]
+
+    if damage > 0:
+        # deduct damage from shield
+        opposing_character.shield = max(0, opposing_character.shield - damage)
+        # then deduct damage from current hp
+        opposing_character.current_hp = max(0, (opposing_character.current_hp - abs(opposing_character.shield - damage)))
+        time.sleep(PRINT_DELAY)
+        print(f"{current_character.name} dealt {damage} damage!")
+        time.sleep(PRINT_DELAY)
+        print(f"{opposing_character.name} has {opposing_character.current_hp} HP remaining.")
+        time.sleep(PRINT_DELAY)
+    if heal > 0:
+        # prevent healing above character's maximum hp
+        current_character.current_hp = min(current_character.hp, current_character.current_hp + heal)
+        time.sleep(PRINT_DELAY)
+        print(f"{current_character.name} restored {heal} health!")
+        time.sleep(PRINT_DELAY)
+        print(f"{current_character.name} has {current_character.current_hp} HP remaining.")
+        time.sleep(PRINT_DELAY)
+    if shield > 0:
+        current_character.shield = current_character.shield + shield
+        time.sleep(PRINT_DELAY)
+        print(f"{current_character.name} gained {shield} shield!")
+        time.sleep(PRINT_DELAY)
 
 def read_dice(character):
     dice_with_index = []
@@ -56,7 +88,7 @@ def menu_combat(player, enemy):
             time.sleep(PRINT_DELAY)
         # use card command
         elif command == "use card":
-            menu_use_card(player)
+            menu_use_card(player, enemy)
         # my status command
         elif command == "my status":
             menu_player_status(player)
@@ -67,7 +99,7 @@ def menu_combat(player, enemy):
         elif command == "end turn":
             break
 
-def menu_use_card(player):
+def menu_use_card(player, enemy):
     print(read_deck(player))
     chosen_card = input_index("> Enter index of card to use: ", player.current_deck)
 
@@ -77,7 +109,7 @@ def menu_use_card(player):
     if chosen_dice not in chosen_card.cost.value:
         print(f"Cannot use this dice on this card. {chosen_card.name} ({card_display.read_cost[chosen_card.cost]}) only accepts dice values of {chosen_card.cost.value}")
     else:
-        chosen_card.read_effect(chosen_dice)
+        calculate_values(player, enemy, chosen_card, chosen_dice)
         player.current_deck.remove(chosen_card)
         player.current_dice.remove(chosen_dice)
 
@@ -149,7 +181,7 @@ def menu_card_info(character):
         pass
 
 # calls
-current_player = new_mage("Novice Mage")
+current_player = new_fighter("Novice Mage")
 
 # begin encounter
 current_enemy = spawn_enemy()
