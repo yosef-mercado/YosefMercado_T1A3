@@ -1,14 +1,42 @@
 import time
+import random
+
+import card_display
 
 from enemy import spawn_enemy
 from game import PRINT_DELAY
 from input_validator import input_index
 from input_validator import input_selection
-from player import new_fighter
+from player import new_mage
 
-import card_display
+def enemy_logic(enemy, player):
+    for card in enemy.deck:
+        result = []
+
+        print(f"> {enemy.name} attempts to use {card.name}.")
+        time.sleep(PRINT_DELAY)
+
+        for dice in range(enemy.dice):
+            coin_flip = random.randint(1, 2)
+            
+            if coin_flip == 1:
+                result.append(True)
+            else:
+                result.append(False)
+
+        if True in result:
+            print(f"{enemy.name} was successful!")
+            time.sleep(PRINT_DELAY)
+
+            calculate_values(enemy, player, card, random.randint(1, 6))
+        else:
+            print(f"{enemy.name} was unsuccessful.")
+            time.sleep(PRINT_DELAY)
 
 def calculate_values(current_character, opposing_character, card, dice):
+    print(f"> {current_character.name} uses {card.name}.")
+    time.sleep(PRINT_DELAY)
+
     # get damage value from effects
     damage = card.read_effect(dice)[0]
     # get heal value from effects
@@ -17,11 +45,13 @@ def calculate_values(current_character, opposing_character, card, dice):
     shield = card.read_effect(dice)[2]
 
     if damage > 0:
-        # deduct damage from shield
+        # check if damage does more than current shield first
+        remainder = abs(opposing_character.shield - damage)
+        # then deduct damage from current shield
         opposing_character.shield = max(0, opposing_character.shield - damage)
-        # then deduct damage from current hp
-        opposing_character.current_hp = max(0, (opposing_character.current_hp - abs(opposing_character.shield - damage)))
-        time.sleep(PRINT_DELAY)
+        # then deduct damage from current hp if no shield remaining
+        if remainder > 0:
+            opposing_character.current_hp = max(0, (opposing_character.current_hp - remainder))
         print(f"{current_character.name} dealt {damage} damage!")
         time.sleep(PRINT_DELAY)
         print(f"{opposing_character.name} has {opposing_character.current_hp} HP remaining.")
@@ -29,15 +59,14 @@ def calculate_values(current_character, opposing_character, card, dice):
     if heal > 0:
         # prevent healing above character's maximum hp
         current_character.current_hp = min(current_character.hp, current_character.current_hp + heal)
-        time.sleep(PRINT_DELAY)
-        print(f"{current_character.name} restored {heal} health!")
+        print(f"{current_character.name} restores {heal} health!")
         time.sleep(PRINT_DELAY)
         print(f"{current_character.name} has {current_character.current_hp} HP remaining.")
         time.sleep(PRINT_DELAY)
     if shield > 0:
         current_character.shield = current_character.shield + shield
         time.sleep(PRINT_DELAY)
-        print(f"{current_character.name} gained {shield} shield!")
+        print(f"{current_character.name} gains {shield} shield!")
         time.sleep(PRINT_DELAY)
 
 def read_dice(character):
@@ -181,7 +210,7 @@ def menu_card_info(character):
         pass
 
 # calls
-current_player = new_fighter("Novice Mage")
+current_player = new_mage("Novice Mage")
 
 # begin encounter
 current_enemy = spawn_enemy()
@@ -189,17 +218,30 @@ current_enemy = spawn_enemy()
 print(f"A wild {current_enemy.name} appears!")
 time.sleep(PRINT_DELAY)
 
-# player turn
-current_player.turn_dice() # refresh player dice
-current_player.turn_deck() # refresh player deck
+while current_player.current_hp > 0 and current_enemy.current_hp > 0:
+    # player turn
+    current_player.turn_dice() # refresh player dice
+    current_player.turn_deck() # refresh player deck
 
-print(f"{current_player.name}'s turn.")
-time.sleep(PRINT_DELAY)
+    print(f"{current_player.name}'s turn.")
+    time.sleep(PRINT_DELAY)
 
-print(f"> {current_player.name} rolls their dice.")
-time.sleep(PRINT_DELAY)
+    print(f"> {current_player.name} rolls their dice.")
+    time.sleep(PRINT_DELAY)
 
-status_dice(current_player)
-time.sleep(PRINT_DELAY)
+    status_dice(current_player)
+    time.sleep(PRINT_DELAY)
 
-menu_combat(current_player, current_enemy)
+    menu_combat(current_player, current_enemy)
+
+    print(f"{current_player.name} ends their turn.")
+
+    # enemy turn
+    print(f"{current_enemy.name}'s turn.")
+    time.sleep(PRINT_DELAY)
+
+    enemy_logic(current_enemy, current_player)
+
+    print(f"{current_enemy.name} ends their turn.")
+
+print("Victory!")

@@ -33,4 +33,6 @@ class Player(Character):
         self.current_deck = self.deck.copy()
 
 class Enemy(Character):
-    pass
+    def __init__(self, name, hp, shield, dice, deck):
+        super().__init__(name, hp, shield, dice, deck)
+        self.current_deck = deck
