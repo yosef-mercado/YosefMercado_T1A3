@@ -147,12 +147,21 @@ def menu_use_card(player, enemy):
     print(read_dice(player))
     chosen_dice = input_index("> Enter index of dice to use: ", player.current_dice)
 
-    if chosen_dice not in chosen_card.cost.value:
-        print(f"Cannot use this dice on this card. {chosen_card.name} ({card_display.read_cost[chosen_card.cost]}) only accepts dice values of {chosen_card.cost.value}")
-    else:
-        calculate_values(player, enemy, chosen_card, chosen_dice)
-        player.current_deck.remove(chosen_card)
-        player.current_dice.remove(chosen_dice)
+    try:
+        if chosen_dice not in chosen_card.cost.value:
+            print(f"Cannot use this dice on this card. {chosen_card.name} ({card_display.read_cost[chosen_card.cost]}) only accepts dice values of {chosen_card.cost.value}")
+        else:
+            calculate_values(player, enemy, chosen_card, chosen_dice)
+            player.current_deck.remove(chosen_card)
+            player.current_dice.remove(chosen_dice)
+    # catches TypeError caused if the cost of the card is only a single integer
+    except TypeError:
+        if chosen_dice != chosen_card.cost.value:
+            print(f"Cannot use this dice on this card. {chosen_card.name} ({card_display.read_cost[chosen_card.cost]}) only accepts dice values of {chosen_card.cost.value}")
+        else:
+            calculate_values(player, enemy, chosen_card, chosen_dice)
+            player.current_deck.remove(chosen_card)
+            player.current_dice.remove(chosen_dice)
 
 def menu_player_status(player):
     PLAYER_STATUS_MENU = ["health", "dice", "deck", "return"]

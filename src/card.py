@@ -4,6 +4,8 @@ from aenum import Enum, NoAlias
 from character import Job
 
 class Cost(Enum):
+    '''Enums of Card cost with sequence of values'''
+
     ANY = (1, 2, 3, 4, 5, 6)
     ODD = (1, 3, 5)
     EVEN = (2, 4, 6)
@@ -23,6 +25,8 @@ class Cost(Enum):
     SIX = 6
 
 class Effect(Enum):
+    '''Enums of Card effect with sequence of values'''
+
     _settings_ = NoAlias
     DAMAGE_1 = (1, 2, 3, "X")
     DAMAGE_2 = (1, 2, 3,)
@@ -30,6 +34,8 @@ class Effect(Enum):
     SHIELD = (1, 2, 3, "X")
 
 class Rarity(Enum):
+    '''Enums of Card rarity with value of the number of effects'''
+
     COMMON = 1
     RARE = 2
     SUPER_RARE = 3
@@ -73,6 +79,8 @@ class Card():
         return values
 
 def random_card_name(player_job):
+    '''Generates a random card name based on the player job'''
+
     ADJECTIVES = (
         "Ordinary", "Magical",
         "Brand New", "Antiquated",
@@ -96,6 +104,8 @@ def random_card_name(player_job):
     return adjective + " " + weapon
 
 def new_random_card(player_job):
+    '''Generates a random Card'''
+    
     random_rarity = random.choice(list(Rarity))
     random_cost = random.choice(list(Cost))
 
