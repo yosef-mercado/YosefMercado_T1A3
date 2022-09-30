@@ -9,6 +9,9 @@ from input_validator import input_index
 from input_validator import input_selection
 from player import new_mage
 
+class EndCombat(Exception):
+    pass
+
 def enemy_logic(enemy, player):
     for card in enemy.deck:
         result = []
@@ -46,16 +49,20 @@ def calculate_values(current_character, opposing_character, card, dice):
 
     if damage > 0:
         # check if damage does more than current shield first
-        remainder = abs(opposing_character.shield - damage)
+        remainder = abs(opposing_character.current_shield - damage)
         # then deduct damage from current shield
-        opposing_character.shield = max(0, opposing_character.shield - damage)
+        opposing_character.current_shield = max(0, opposing_character.current_shield - damage)
         # then deduct damage from current hp if no shield remaining
-        if remainder > 0:
+        if opposing_character.current_shield == 0 and remainder > 0:
             opposing_character.current_hp = max(0, (opposing_character.current_hp - remainder))
         print(f"{current_character.name} dealt {damage} damage!")
         time.sleep(PRINT_DELAY)
         print(f"{opposing_character.name} has {opposing_character.current_hp} HP remaining.")
         time.sleep(PRINT_DELAY)
+
+        # end combat if damage reduces opponent to 0 HP
+        if opposing_character.current_hp == 0:
+            raise EndCombat
     if heal > 0:
         # prevent healing above character's maximum hp
         current_character.current_hp = min(current_character.hp, current_character.current_hp + heal)
@@ -64,7 +71,7 @@ def calculate_values(current_character, opposing_character, card, dice):
         print(f"{current_character.name} has {current_character.current_hp} HP remaining.")
         time.sleep(PRINT_DELAY)
     if shield > 0:
-        current_character.shield = current_character.shield + shield
+        current_character.current_shield = current_character.current_shield + shield
         time.sleep(PRINT_DELAY)
         print(f"{current_character.name} gains {shield} shield!")
         time.sleep(PRINT_DELAY)
@@ -209,39 +216,40 @@ def menu_card_info(character):
     elif command == "return":
         pass
 
-# calls
-current_player = new_mage("Novice Mage")
-
-# begin encounter
-current_enemy = spawn_enemy()
-
-print(f"A wild {current_enemy.name} appears!")
-time.sleep(PRINT_DELAY)
-
-while current_player.current_hp > 0 and current_enemy.current_hp > 0:
-    # player turn
-    current_player.turn_dice() # refresh player dice
-    current_player.turn_deck() # refresh player deck
-
-    print(f"{current_player.name}'s turn.")
+def combat_loop(player, enemy):
+    print(f"A wild {enemy.name} appears!")
     time.sleep(PRINT_DELAY)
 
-    print(f"> {current_player.name} rolls their dice.")
-    time.sleep(PRINT_DELAY)
+    try:
+        while True:
+            # player turn
+            player.turn_dice() # refresh player dice
+            player.turn_deck() # refresh player deck
 
-    status_dice(current_player)
-    time.sleep(PRINT_DELAY)
+            print(f"{player.name}'s turn.")
+            time.sleep(PRINT_DELAY)
 
-    menu_combat(current_player, current_enemy)
+            print(f"> {player.name} rolls their dice.")
+            time.sleep(PRINT_DELAY)
 
-    print(f"{current_player.name} ends their turn.")
+            status_dice(player)
+            time.sleep(PRINT_DELAY)
 
-    # enemy turn
-    print(f"{current_enemy.name}'s turn.")
-    time.sleep(PRINT_DELAY)
+            menu_combat(player, enemy)
 
-    enemy_logic(current_enemy, current_player)
+            print(f"{player.name} ends their turn.")
+            time.sleep(PRINT_DELAY)
 
-    print(f"{current_enemy.name} ends their turn.")
+            # enemy turn
+            print(f"{enemy.name}'s turn.")
+            time.sleep(PRINT_DELAY)
 
-print("Victory!")
+            enemy_logic(enemy, player)
+
+            print(f"{enemy.name} ends their turn.")
+            time.sleep(PRINT_DELAY)
+    except EndCombat:
+        if enemy.current_hp == 0:
+            return True
+        else:
+            return False
