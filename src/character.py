@@ -29,9 +29,11 @@ class Player(Character):
         self.current_deck = []
 
     def turn_dice(self):
+        '''Refreshes the player dice for turn'''
         self.current_dice = roll(f"{self.dice}d6")
         
     def turn_deck(self):
+        '''Refreshes the player deck for turn'''
         self.current_deck = self.deck.copy()
 
 class Enemy(Character):
