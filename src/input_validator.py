@@ -1,3 +1,11 @@
+import time
+
+# delay of printing lines
+def print_delay():
+    '''Delays the printing of lines by a fixed amount of time'''
+    PRINT_DELAY = 1.25
+    time.sleep(PRINT_DELAY)
+
 # input functions for specific data types
 def input_int(prompt: str):
     '''Repeatedly prompts for input until an integer is entered.'''

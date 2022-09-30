@@ -1,8 +1,10 @@
+import time
 import player_card_list
 
 from character import Job
 from character import Player
 
+from input_validator import print_delay
 from input_validator import input_name
 from input_validator import input_selection
 
@@ -50,13 +52,18 @@ def new_thief(player_name: str):
 
 def spawn_player():
     print("Welcome adventurer!")
+    print_delay()
 
     player_name = input_name("What is your name? ")
 
     print("Duly noted. Now, what job do you specialise as?")
+    print_delay()
+    
+    print("Are you a Fighter, a Mage, or a Thief? ")
+    print_delay()
            
     job_options = [job_type.value for job_type in Job]
-    job_selection = input_selection("Are you a Fighter, a Mage, or a Thief? ", job_options)
+    job_selection = input_selection("> Enter job selection: ", job_options)
 
     if job_selection == "fighter":
         player = new_fighter(player_name)
@@ -66,6 +73,9 @@ def spawn_player():
         player = new_thief(player_name)
 
     print(f"So, you're {player_name} the {job_selection.capitalize()} eh?")
+    print_delay()
+
     print("Go forth, and may the Heart of the Dice be on your side.")
+    print_delay()
 
     return player

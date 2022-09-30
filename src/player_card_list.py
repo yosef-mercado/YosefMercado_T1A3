@@ -8,7 +8,7 @@ from card import Rarity
 fighter_card_1 = Card(
     "Adventurer's Sword",
     Rarity.SUPER_RARE,
-    Cost.MAX_FOUR,
+    Cost.EVEN,
     )
 
 fighter_card_1.add_effect([Effect.DAMAGE_2, Effect.DAMAGE_2.value[0]])

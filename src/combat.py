@@ -3,11 +3,9 @@ import random
 
 import card_display
 
-from enemy import spawn_enemy
-from game import PRINT_DELAY
+from input_validator import print_delay
 from input_validator import input_index
 from input_validator import input_selection
-from player import new_mage
 
 class EndCombat(Exception):
     pass
@@ -17,7 +15,7 @@ def enemy_logic(enemy, player):
         result = []
 
         print(f"> {enemy.name} attempts to use {card.name}.")
-        time.sleep(PRINT_DELAY)
+        print_delay()
 
         for dice in range(enemy.dice):
             coin_flip = random.randint(1, 2)
@@ -29,16 +27,16 @@ def enemy_logic(enemy, player):
 
         if True in result:
             print(f"{enemy.name} was successful!")
-            time.sleep(PRINT_DELAY)
+            print_delay()
 
             calculate_values(enemy, player, card, random.randint(1, 6))
         else:
             print(f"{enemy.name} was unsuccessful.")
-            time.sleep(PRINT_DELAY)
+            print_delay()
 
 def calculate_values(current_character, opposing_character, card, dice):
     print(f"> {current_character.name} uses {card.name}.")
-    time.sleep(PRINT_DELAY)
+    print_delay()
 
     # get damage value from effects
     damage = card.read_effect(dice)[0]
@@ -56,9 +54,9 @@ def calculate_values(current_character, opposing_character, card, dice):
         if opposing_character.current_shield == 0 and remainder > 0:
             opposing_character.current_hp = max(0, (opposing_character.current_hp - remainder))
         print(f"{current_character.name} dealt {damage} damage!")
-        time.sleep(PRINT_DELAY)
+        print_delay()
         print(f"{opposing_character.name} has {opposing_character.current_hp} HP remaining.")
-        time.sleep(PRINT_DELAY)
+        print_delay()
 
         # end combat if damage reduces opponent to 0 HP
         if opposing_character.current_hp == 0:
@@ -67,14 +65,14 @@ def calculate_values(current_character, opposing_character, card, dice):
         # prevent healing above character's maximum hp
         current_character.current_hp = min(current_character.hp, current_character.current_hp + heal)
         print(f"{current_character.name} restores {heal} health!")
-        time.sleep(PRINT_DELAY)
+        print_delay()
         print(f"{current_character.name} has {current_character.current_hp} HP remaining.")
-        time.sleep(PRINT_DELAY)
+        print_delay()
     if shield > 0:
         current_character.current_shield = current_character.current_shield + shield
-        time.sleep(PRINT_DELAY)
+        print_delay()
         print(f"{current_character.name} gains {shield} shield!")
-        time.sleep(PRINT_DELAY)
+        print_delay()
 
 def read_dice(character):
     dice_with_index = []
@@ -112,7 +110,7 @@ def menu_combat(player, enemy):
     
     while True:
         print(f"What will {player.name} do?")
-        time.sleep(PRINT_DELAY)
+        print_delay()
 
         # combat menu
         print(COMBAT_MENU)
@@ -121,7 +119,7 @@ def menu_combat(player, enemy):
         # use card command if deck is empty
         if command == "use card" and not player.current_deck:
             print("No more cards remaining in deck.")
-            time.sleep(PRINT_DELAY)
+            print_delay()
         # use card command
         elif command == "use card":
             menu_use_card(player, enemy)
@@ -158,22 +156,22 @@ def menu_player_status(player):
     # player health command
     if command == "health":
         status_health(player)
-        time.sleep(PRINT_DELAY)
+        print_delay()
     # player dice command
     elif command == "dice":
         status_dice(player)
-        time.sleep(PRINT_DELAY)
+        print_delay()
     # player deck command if deck is empty
     elif command == "deck" and not player.current_deck:
         print("No more cards remaining in deck.")
-        time.sleep(PRINT_DELAY)
+        print_delay()
     # player deck command
     elif command == "deck":
         status_deck(player)
-        time.sleep(PRINT_DELAY)
+        print_delay()
 
         menu_card_info(player)
-        time.sleep(PRINT_DELAY)
+        print_delay()
     # return to combat menu
     elif command == "return":
         pass
@@ -187,14 +185,14 @@ def menu_enemy_status(enemy):
     # enemy health command
     if command == "health":
         status_health(enemy)
-        time.sleep(PRINT_DELAY)
+        print_delay()
     # enemy deck command
     elif command == "deck":
         status_deck(enemy)
-        time.sleep(PRINT_DELAY)
+        print_delay()
 
         menu_card_info(enemy)
-        time.sleep(PRINT_DELAY)
+        print_delay()
     # return to combat menu
     elif command == "return":
         pass
@@ -208,7 +206,7 @@ def menu_card_info(character):
     # card info command
     if command == "card info":
         card = input_index("> Enter index of card to view: ", character.current_deck)
-        time.sleep(PRINT_DELAY)
+        print_delay()
 
         card_display.display_card(card)
 
@@ -218,7 +216,7 @@ def menu_card_info(character):
 
 def combat_loop(player, enemy):
     print(f"A wild {enemy.name} appears!")
-    time.sleep(PRINT_DELAY)
+    print_delay()
 
     try:
         while True:
@@ -227,27 +225,27 @@ def combat_loop(player, enemy):
             player.turn_deck() # refresh player deck
 
             print(f"{player.name}'s turn.")
-            time.sleep(PRINT_DELAY)
+            print_delay()
 
             print(f"> {player.name} rolls their dice.")
-            time.sleep(PRINT_DELAY)
+            print_delay()
 
             status_dice(player)
-            time.sleep(PRINT_DELAY)
+            print_delay()
 
             menu_combat(player, enemy)
 
             print(f"{player.name} ends their turn.")
-            time.sleep(PRINT_DELAY)
+            print_delay()
 
             # enemy turn
             print(f"{enemy.name}'s turn.")
-            time.sleep(PRINT_DELAY)
+            print_delay()
 
             enemy_logic(enemy, player)
 
             print(f"{enemy.name} ends their turn.")
-            time.sleep(PRINT_DELAY)
+            print_delay()
     except EndCombat:
         if enemy.current_hp == 0:
             return True

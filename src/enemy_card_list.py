@@ -52,6 +52,6 @@ zombie_card_2 = Card(
 zombie_card_2.add_effect([Effect.HEAL, Effect.HEAL.value[0]])
 
 # enemy decks
-ninja_deck = [ninja_card_1, ninja_card_1, ninja_card_2]
+ninja_deck = [ninja_card_1, ninja_card_2]
 pirate_deck = [pirate_card_1, pirate_card_1]
 zombie_deck = [zombie_card_1, zombie_card_2]
