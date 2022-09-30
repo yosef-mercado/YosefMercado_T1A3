@@ -15,8 +15,15 @@ class Character():
         self.shield = shield
         self.current_shield = shield
         self.dice = dice
-        self.current_dice = []
         self.deck = deck
+
+class Player(Character):
+    DECK_SIZE = 5
+
+    def __init__(self, name, job, hp, shield, dice, deck):
+        super().__init__(name, hp, shield, dice, deck)
+        self.job = job
+        self.current_dice = []
         self.current_deck = []
 
     def turn_dice(self):
@@ -25,14 +32,5 @@ class Character():
     def turn_deck(self):
         self.current_deck = self.deck.copy()
 
-class Player(Character):
-    DECK_SIZE = 5
-
-    def __init__(self, name, job, hp, shield, dice, deck):
-        super().__init__(name, hp, shield, dice, deck)
-        self.job = job
-
 class Enemy(Character):
-    def __init__(self, name, hp, shield, dice, deck):
-        super().__init__(name, hp, shield, dice, deck)
-        self.current_deck = self.deck
+    pass
