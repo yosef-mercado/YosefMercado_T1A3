@@ -10,7 +10,7 @@ def new_ninja():
         "Ninja",
         16,
         0,
-        3,
+        2,
         enemy_card_list.ninja_deck
         )
 
@@ -34,13 +34,24 @@ def new_zombie():
 
     zombie = Enemy(
         "Zombie",
-        8,
+        20,
         0,
         1,
         enemy_card_list.zombie_deck
         )
 
     return zombie
+
+def new_final_boss():
+    '''Insantiates the Enemy class with the values of the Ninja Pirate Zombie enemy'''
+
+    final_boss = Enemy(
+        "Ninja Pirate Zombie",
+        8,
+        0,
+        3,
+        enemy_card_list.final_boss_deck
+        )
 
 def spawn_enemy():
     '''Instantiates the Enemy class with the values of a random enemy.'''
