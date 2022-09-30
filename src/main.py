@@ -14,7 +14,7 @@ for encounters in range(NUMBER_OF_ENCOUNTERS):
     current_enemy = spawn_enemy()
 
     print("----------")
-    print(f"Encounter {encounters + 1} / {NUMBER_OF_ENCOUNTERS}")
+    print(f"Regular Encounter {encounters + 1} / {NUMBER_OF_ENCOUNTERS}")
     print("----------")
     print_delay()
 
