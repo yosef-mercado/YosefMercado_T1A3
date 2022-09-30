@@ -28,7 +28,6 @@ class Effect(Enum):
     DAMAGE_2 = (1, 2, 3,)
     HEAL = (1, 2, 3, "X")
     SHIELD = (1, 2, 3, "X")
-    DICE = ("same", "new")
 
 class Rarity(Enum):
     COMMON = 1
@@ -44,6 +43,34 @@ class Card():
 
     def add_effect(self, new_effect):
         self.effect.append(new_effect)
+
+    def read_effect(self, dice):
+        damage = 0
+        heal = 0
+        shield = 0
+
+        for effect in self.effect:
+            if effect[0] == Effect.DAMAGE_1:
+                if effect[1] == "X":
+                    damage = damage + dice
+                else:
+                    damage = damage + effect[1]
+            elif effect[0] == Effect.DAMAGE_2:
+                damage = damage + dice + effect[1]
+            elif effect[0] == Effect.HEAL:
+                if effect[1] == "X":
+                    heal = heal + dice
+                else:
+                    heal = heal + effect[1]
+            elif effect[0] == Effect.SHIELD:
+                if effect[1] == "X":
+                    shield = shield + dice
+                else:
+                    shield = shield + effect[1]
+        
+        values = [damage, heal, shield]
+
+        return values
 
 def random_card_name(player_job):
     ADJECTIVES = (

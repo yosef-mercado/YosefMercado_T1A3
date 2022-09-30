@@ -77,6 +77,7 @@ def menu_use_card(player):
     if chosen_dice not in chosen_card.cost.value:
         print(f"Cannot use this dice on this card. {chosen_card.name} ({card_display.read_cost[chosen_card.cost]}) only accepts dice values of {chosen_card.cost.value}")
     else:
+        chosen_card.read_effect(chosen_dice)
         player.current_deck.remove(chosen_card)
         player.current_dice.remove(chosen_dice)
 
