@@ -1,7 +1,7 @@
 # T1A3 - Terminal Application by Yosef Mercado
 
 [Trello Board](https://trello.com/invite/b/nto8hYJ9/a5e6a22831e723dc2fc435a957138dac/t1a3-heart-of-the-dice-terminal-application)
-
+[GitHub Repository](https://github.com/yosef-mercado/YosefMercado_T1A3)
 [PEP 8 Style Guide](https://peps.python.org/pep-0008/)
 
 # Features
